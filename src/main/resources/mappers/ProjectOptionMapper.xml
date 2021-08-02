@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="proj21_funding.mapper.PrjOptionMapper">
+	
+	<resultMap type="PrjOption" id="resOption">
+		<id property="optNo" column="OptNo"/>
+		<result property="optName" column="OptName" />
+		<result property="optPrice" column="OptPrice"/>
+		<result property="optContent" column="OptContent"/>
+	</resultMap>
+	
+	<!-- <resultMap type="PrjOption" id="AssciatePrjAndPrjOpt">
+		<association property="prjNo" resultMap="proj21_funding.mapper.ProjectMapper.resProject"></association>	
+	</resultMap> -->
+			
+	<!--프로젝트 + 프로젝트옵션 + 유저정보 -->
+	<resultMap type="PrjOption" id="AssociateProject" extends="resOption">
+		<association property="prjNo" resultMap="proj21_funding.mapper.ProjectMapper.AssociateResUserInfo"></association>
+	</resultMap>
+		
+		
+	<select id="selectPrjOptionByAll" resultType="PrjOption">
+		select * from PrjOption
+	</select>	
+	
+	<select id="selectPrjOptionByOptNo" resultMap="AssociateProject">
+		select p.prjNo,p.UserNo, PrjName, PrjContent, PrjGoal,
+				StartDate, EndDate, PayDate, EndYN, u.UserId , u.UserName,u.nickname,
+				o.OptNo, o.OptPrice,o.OptContent,o.optName
+			from project p join userinfo u on p.userno = u.UserNo 
+						   join prjoption o on p.PrjNo =o.PrjNo
+			where o.optNo = #{optNo}
+	</select>
+	
+	
+	<!--프로젝트리스트에서 클릭해서 들어가면 해당 프로젝트의 옵션까지 함께 표현  -->
+	<select id="selectPrjOptionByPrjNo" resultMap="AssociateProject" parameterType="int">
+			select 
+				p.prjNo,p.UserNo, p.pCategoryNo, pc.pCategoryName, 
+				 PrjName, PrjContent, PrjGoal,
+				StartDate, EndDate, PayDate, EndYN, 
+				u.UserId , u.UserName,
+				o.OptNo, o.OptPrice,o.OptContent,o.optName
+			from project p join userinfo u on p.userno = u.UserNo 
+						   join prjoption o on p.PrjNo =o.PrjNo
+						   join prjcategory pc on p.pCategoryNo = pc.pCategoryNo 
+			where o.prjNo = #{prjNo}
+	</select>
+	
+		<!-- 옵션 등록1  -->
+		<insert id="insertPrjOption">
+			insert into prjoption 
+					(prjno, OptName, OptPrice, OptContent)
+			values 
+					(#{prjNo.prjNo}, #{optName},  #{optPrice}, #{optContent})
+		</insert>		
+		
+		<!-- 옵션 추가  -->
+		<insert id="insertOptionByMap" parameterType="map">
+				insert into prjoption(PrjNo , OptName, OptPrice,OptContent) values
+						(#{pNo}, #{addOptName1}, #{addOptPrice1}, #{addOptContent1});					
+		</insert>
+		
+		<!-- 옵션2개 추가  -->
+		<insert id="insertPrjOptionsByMap" parameterType="map">
+				insert into prjoption(PrjNo , OptName, OptPrice,OptContent) values
+						(#{pNo}, #{addOptName1}, #{addOptPrice1}, #{addOptContent1}),
+						(#{pNo}, #{addOptName2}, #{addOptPrice2},  #{addOptContent2});		
+		</insert>
+		<!-- 옵션 3개추가  -->
+		<insert id="insertPrjOptionsOfFourByMap" parameterType="map">
+				insert into prjoption(PrjNo , OptName, OptPrice,OptContent) values
+						(#{pNo}, #{addOptName1}, #{addOptPrice1}, #{addOptContent1}),
+						(#{pNo}, #{addOptName2}, #{addOptPrice2},  #{addOptContent2}),	
+						(#{pNo}, #{addOptName3}, #{addOptPrice3},  #{addOptContent3});		
+		</insert>
+		
+		<!-- 프로젝트  추가 옵션  수정 사용안함 -->
+		<update id="updatePrjOption">
+			update prjoption 
+				set OptName = #{optName}, OptPrice = #{optPrice}, OptContent = #{optContent}
+			where OptNo = #{optNo}		
+		</update>
+		
+		<!-- 프로젝트 추가 1번쨰 옵션 수정 -->
+		<update id="updateOptionByMap" parameterType="map">
+			update prjoption 
+				set OptName = #{addOptName1}, OptPrice = #{addOptPrice1}, 
+							OptContent = #{addOptContent1}
+			where OptNo = #{addOptNo1}		
+		</update>
+		
+		<!-- 프로젝트 추가 옵션들 수정 -->
+		<update id="updateAllAddOptionsByMap" parameterType="map">
+			update prjoption as op1 inner join prjoption as op2
+				on op1.PrjNo = op2.PrjNo 
+			set 
+					op1.OptName =#{addOptName1} , op1.OptPrice =#{addOptPrice1} , op1.OptContent =#{addOptContent1} ,
+					op2.OptName = #{addOptName2} , op2.OptPrice = #{addOptPrice2} , op2.OptContent = #{addOptContent2} 
+			where op1.OptNo =#{addOptNo1}  and op2.OptNo  =#{addOptNo2} 
+		</update>
+		
+		<!-- 프로젝트 추가 3번째 옵션 수정 -->
+		<update id="updateSubOptByMap" parameterType="map">
+			update prjoption 
+				set OptName = #{addOptName3}, OptPrice = #{addOptPrice3}, 
+							OptContent = #{addOptContent3}
+			where OptNo = #{addOptNo3}		
+		</update>
+		
+		<!-- 프로젝트 옵션 삭제 -->
+		<delete id="removePrjOption">
+			delete from prjoption 
+					where PrjNo = #{prjNo.prjNo}
+		</delete>
+		
+		<!--addOptNo1맵으로 제거  -->
+		<delete id="removeOptNumOne" parameterType="map">
+			delete from prjoption 
+					where OptNo = #{addOptNo1}		
+		</delete>
+		
+		<!--addOptNo2맵으로 제거  -->
+		<delete id="removeOptNumTwo" parameterType="map">
+				delete from prjoption 
+					where OptNo = #{addOptNo2}		
+		</delete>
+		
+		<!--addOptNo3맵으로 제거  -->
+		<delete id="removeOptNumThree" parameterType="map">
+				delete from prjoption 
+					where OptNo = #{addOptNo3}		
+		</delete>		
+		
+		
+		<!--간단한 프로젝트옵션 리스트 -->
+		<select id="selectSimplePrjOptionByPrjNo" resultMap="AssociateProject">
+				select OptNo, PrjNo, OptName, OptPrice, OptContent
+					from prjoption
+				where PrjNo =#{prjNo.prjNo}		
+		</select>
+		
+		<select id = "selectSimpleOptionByPrjNo" resultMap="resOption">
+			select * from prjoption  where prjno =#{prjNo}
+		</select>
+
+
+</mapper>

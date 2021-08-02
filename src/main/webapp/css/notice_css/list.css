@@ -1,0 +1,266 @@
+@charset "UTF-8";
+
+span.notice{
+	margin: 0;
+	padding: 0;
+	font-size: 28pt;
+	font-weight: normal;
+	font-size: 30px;
+	line-height: 45px;
+	letter-spacing: -0.03em;
+}
+
+.top {
+	margin: 0px;
+	padding: 20px 0px;
+	border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.top_title {
+	padding: 32px 16px 18px;
+}
+
+.top_category {
+	display: inline-flex;
+	word-break: keep-all;
+	padding: 0px 20px;
+	font-size: 14px;
+}
+
+.top_category a:hover{
+	color: #6495ED;
+}
+
+.searchBtn{
+	width: 100px;
+	height: 40px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	background-image: none;
+	border-radius: 4px;
+}
+
+.searchKeyword{
+	width: 150px;
+	height: 34px;
+	padding: 2px 6px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.selectpicker{
+	display: inline-block;
+	width: 150px;
+	height: 40px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	float:left;
+	text-align: center;
+}
+
+.cate {
+	margin: 0px 24px 0px 0px;
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	height: 100%;
+}
+
+.catetext {
+	font-weight: bold;
+	color: rgb(61, 61, 61);
+	text-decoration: none;
+}
+
+a.notice {
+	margin: 0;
+	padding: 0;
+	font-size: 28pt;
+	font-weight: normal;
+	font-size: 30px;
+	line-height: 45px;
+	letter-spacing: -0.03em;
+	text-decoration: none;
+}
+
+div.list {
+    box-sizing:border-box;
+    list-style: none;
+    padding: 0px;
+    margin: 16px 0px;
+    border-bottom: 0px;
+    border: 1px solid rgb(230, 230, 230);
+}
+
+ul.cont{
+    display: block;
+    margin: 0px;
+    padding: 0px;
+}
+
+.title-box:hover{
+	background-color: #f0f8ff;
+}
+
+a.notice {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: justify;
+	justify-content: space-between;
+}
+
+li.title-box { 
+	display: block;
+	flex: 2 1 0%;
+	margin: 0;
+    min-height: 103px;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.group {
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	font-size: 11px;
+	font-weight: bold;
+	color: rgb(158, 158, 158);
+	line-height: 1.54;
+	letter-spacing: -0.2px;
+	margin: 0px 0px 2px;
+}
+
+.title {
+	display: -webkit-box;
+	flex: 1 1 0%;
+	font-size: 16px;
+	line-height: 27px;
+	font-weight: normal;
+	color: rgb(61, 61, 61);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	letter-spacing: -0.36px;
+	margin: 0px 0px 6px;
+}
+
+.date {
+	display: block;
+	font-size: 11px;
+	line-height: 18px;
+	color: rgb(109, 109, 109);
+	letter-spacing: -0.2px;
+}
+
+/* 페이징 구역 */
+
+.paginate {
+    display: flex;
+    justify-content: center;
+    margin: 16px auto 40px;
+    text-align: center;
+}
+
+.paging{
+    display: flex;
+    justify-content: center;
+    color: rgb(158, 158, 158);
+    margin: 0px auto;
+    font-size: 14px !important;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding: 0px;
+}
+
+.paging a{
+	text-decoration: none;
+	color: gray;
+	font-weight: 700;
+}
+.paging li{
+    display: flex;
+    color: rgb(158, 158, 158);
+    margin: 0px;
+    font-size: 14px !important;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+}
+
+
+/* 공지글 작성하기 */
+
+.bottommenu {
+	display: flex;
+	flex-wrap: wrap;
+	-webkit-box-pack: center;
+	justify-content: center;
+	text-decoration: none;
+}
+
+.writenotice { 
+	width: 167px;
+	height: 44px;
+	font-size: 16px;
+	line-height: 27px;
+	letter-spacing: -0.02em;
+	font-weight: normal;
+	color: rgb(109, 109, 109);
+	border: 1px solid rgb(230, 230, 230);
+	border-radius: 4px;
+	padding: 0px;
+	box-sizing: border-box;
+	background: rgb(255, 255, 255);
+	margin: 0px;
+	cursor: pointer;
+}
+
+#noticesearch select{
+	height: 45px;
+	width: 12%;
+}
+
+#noticesearch input[type=text]{
+  width: 77%;
+  height: 45px;
+  padding: 0px 20px;
+  margin: 0px;
+  box-sizing: border-box;
+  border-radius: 0px;
+  background-color:#f8f8ff;
+  border: 0px;
+}
+
+#noticesearch input[type=submit]{
+	height: 45px;
+	width: 10%;
+	background-color: #007ac3;
+	color : white;
+	margin: 0px;
+  	border-radius: 0px;
+  	border: 0px;
+  	cursor: pointer;
+}

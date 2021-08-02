@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+#searchArea{	
+	display: flex;
+	flex: auto;
+	text-align: center;	
+}
+#proceeding{
+	width: 48%;		
+}
+#empty{
+	padding-top:300px;
+	width: 4%;	
+}
+#support{
+	width: 48%;
+}
+#projects{
+	width:90%;
+	overflow: scroll;
+	height: 500px;	
+	display: inline-block;
+	text-align: center;
+}
+
+#members{
+	overflow: scroll;
+	height: 500px;
+}
+table tr th{
+	border-bottom: 1px solid black;		
+}
+
+#projects table tr th:nth-of-type(1){
+	width: 20%;	
+}
+#projects table tr th:nth-of-type(2),#projects table tr th:nth-of-type(3){
+	width: 50%;	
+}
+#projects table tr td:nth-of-type(2){	
+	white-space: nomal;
+	overflow:hidden;
+	word-wrap:break-word;
+	display:-webkit-box;
+	 -webkit-line-clamp:1;
+	 -webkit-box-orient:vertical;
+}
+
+#members table tr th:nth-of-type(1){
+	border: none;
+}
+
+#members table tr th:nth-of-type(2) {
+	width: 20%;
+}
+#members table tr th:nth-of-type(3),#members table tr th:nth-of-type(4){
+	width: 40%;	
+}
+
+a{
+	color: black;
+	text-decoration: none;	
+}
+
+table tr td{
+	border-bottom: 1px dotted gray;		
+}
+#btn{		
+	text-align: right;
+	margin-top: 5px;
+	}
+button{
+	font-weight: bold;
+	line-height: 20px;
+}

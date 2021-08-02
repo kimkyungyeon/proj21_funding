@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="proj21_funding.mapper.MessageMapper">
+
+	<resultMap type="Message" id="resMsg">
+		<id property="msgNo" column="msgNo"/>
+		<result property="sendUser" column="sendUser"/>
+		<result property="receiveUser" column="receiveUser"/>
+		<result property="msgContent" column="msgContent"/>
+		<result property="sendDate" column="sendDate"/>
+		<result property="readYN" column="readYN"/>
+		<result property="delSend" column="delSend"/>
+		<result property="delRecevie" column="delRecevie"/>
+	</resultMap>
+	
+	<select id="countBySendUser" resultType="int">
+		select count(*)
+		  from message
+		 where SendUser = #{sendUser} and delSend = false	
+	</select>
+	
+	<select id="selectBySendUser"  resultMap="resMsg">
+		select R1.* FROM(
+				select msgNo, SendUser, ReceiveUser, MsgContent, SendDate, ReadYN
+				from message
+				where SendUser = #{sendUser} and delSend = false
+				order by MsgNo desc	
+		) R1
+		LIMIT #{pageSearch}, #{cntPerPage}
+	</select>
+	
+	<select id="countByReceiveUser" resultType="int">
+		select count(*)
+		  from message
+		 where ReceiveUser = #{receiveUser} and delRecevie = false	
+	</select>	
+	
+	<select id="selectByreceiveUser" resultMap="resMsg">
+		select R1.* FROM(
+			select msgNo, SendUser, ReceiveUser, MsgContent, SendDate, ReadYN
+			from message
+			where ReceiveUser = #{receiveUser} and delRecevie = false
+			order by MsgNo desc
+		) R1
+		LIMIT #{pageSearch}, #{cntPerPage}	
+	</select>
+
+	<select id="countByRead" resultType="int">
+		select count(*)
+		  from message
+		 where ReceiveUser = #{receiveUser} and delRecevie = false and ReadYN = false	
+	</select>	
+
+	<select id="selectByRead" resultMap="resMsg">
+		select R1.* FROM(
+			select msgNo, SendUser, ReceiveUser, MsgContent, SendDate, ReadYN
+			from message
+			where ReceiveUser = #{receiveUser} and delRecevie = false and ReadYN = false
+			order by MsgNo desc
+		) R1
+		LIMIT #{pageSearch}, #{cntPerPage}		
+	</select>
+	
+	<select id="selectByMsgNo" resultMap="resMsg">
+		select msgNo, SendUser, ReceiveUser, MsgContent, ReadYN
+		from message
+		where msgNo = #{msgNo} 
+	</select>
+	
+	<insert id="insertMessage">
+		insert into message ( SendUser, ReceiveUser, MsgContent)
+	 values ( #{sendUser}, #{receiveUser}, #{msgContent})
+	</insert>	
+	
+	<update id="updateMessage">
+		update message 
+		   set ReadYN = true
+ 		 where MsgNo = #{msgNo}	
+	</update>
+	
+	<update id="delReceiveMessage">
+		update message 
+		   set delRecevie = true
+ 		 where MsgNo = #{msgNo}	
+	</update>
+	
+	<update id="delSendMessage">
+		update message 
+		   set delSend = true
+ 		 where MsgNo = #{msgNo}	
+	</update>
+	
+</mapper>

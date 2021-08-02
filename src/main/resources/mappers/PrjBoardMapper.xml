@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="proj21_funding.mapper.PrjBoardMapper">
+
+	<resultMap type="PrjBoard" id="resPb">
+		<id property="postNo" column="postNo"/>		
+		<result property="prjNo" column="prjNo"/>		
+		<result property="postContent" column="postContent"/>
+		<result property="postDate" column="postDate"/>
+		<result property="postFile" column="postFile"/>
+		<result property="fileName" column="fileName"/>
+		<association property="userNo" resultMap="proj21_funding.mapper.UserInfoMapper.resUser" ></association>
+	</resultMap>
+	
+	<resultMap type="PrjBoardReply" id="resPbr">
+		<id property="replyNo" column="replyNo"/>		
+		<result property="postNo" column="postNo"/>		
+		<result property="replyContent" column="replyContent"/>		
+		<association property="userNo" resultMap="proj21_funding.mapper.UserInfoMapper.resUser" ></association>
+	</resultMap>
+	
+	<select id="selectPrjBoardbyPrjNo" resultMap="resPb">
+		select PostNo, PrjNo, UserNo, PostContent ,PostDate ,PostFile, FileName 
+		  from prjboard
+		 where PrjNo = #{prjNo}
+		 order by PostNo desc
+	</select>
+	
+	<select id="selectPrjBoardbyPostNo" resultMap="resPb">
+		select PostNo, PrjNo, UserNo, PostContent ,PostDate ,PostFile, FileName 
+		  from prjboard
+		 where PostNo = #{postNo}
+	</select>
+
+	<insert id="insertPrjBoard">
+		insert
+		  into prjboard(PrjNo, UserNo, PostContent,PostFile, FileName)
+		  values (#{prjNo}, #{userNo.userNo}, #{postContent}, #{postFile}, #{fileName})
+	</insert>
+	
+	<update id="updatePrjBoard">
+		update prjboard
+		   set PostContent=#{postContent}, PostFile = #{postFile}, FileName = #{fileName}
+	     where PostNo = #{postNo}
+	</update>
+	
+	<update id="updatePrjBoardNoFile">
+		update prjboard
+		   set PostContent=#{postContent}
+	     where PostNo = #{postNo}
+	</update>
+	
+	
+	<delete id="deletePrjBoard">
+		delete
+		  from prjboard
+		 where PostNo = #{postNo}
+	</delete>
+
+	<select id="selectPrjBoardReplyPostNo" resultMap="resPbr">
+		select ReplyNo, PostNo, UserNo, ReplyContent 
+		  from PrjBoardReply
+		 where PostNo = #{postNo}		 	
+	</select>
+	
+	<select id="selectPrjBoardbyReplyNo" resultMap="resPbr">
+		select ReplyNo, PostNo, UserNo, ReplyContent 
+		  from PrjBoardReply
+		 where ReplyNo = #{replyNo}			
+	</select>
+	
+	
+	<insert id="insertPrjBoardReply">
+		insert into PrjBoardReply(PostNo, UserNo, ReplyContent)
+		values (#{postNo}, #{userNo.userNo}, #{replyContent})	
+	</insert>
+	
+	<update id="updatePrjBoardReply">
+		update PrjBoardReply
+  		   set ReplyContent = #{replyContent}
+		 where ReplyNo = #{replyNo}
+	</update>
+	
+	<delete id="deletePrjBoardReply">
+		delete 
+  		  from PrjBoardReply
+ 		 where ReplyNo = #{replyNo}	
+	</delete>	
+	
+</mapper>

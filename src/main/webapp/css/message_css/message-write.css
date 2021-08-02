@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+#messageFormArea{	
+	display: flex;
+}
+
+#menu{
+	border: none;	
+	padding-top: 30px;	
+}
+
+#message{	
+	width: 850px;
+}
+
+#messageForm{
+	border: none;	
+	width: 100%;
+	margin-top: -18px;
+}
+label{	
+	display:inline-block;
+	width: 10%;		
+}
+
+#input1{
+	width: 85%;	
+	background-color: #e4e2e3;
+}
+#receiveUser{
+	width: 79%;	
+}
+#input2{
+	width: 97%;	
+}
+#errors{
+	margin-top: -15px;
+	margin-bottom: -15px;
+	padding-left: 40%;
+	line-height: 13px;
+	color: red;
+	font-size: 13px;
+}
+
+#btn{
+	margin-top: 20px;
+	text-align: center;	
+}
+
+button{
+	font-weight: bold;
+	line-height: 20px;
+}

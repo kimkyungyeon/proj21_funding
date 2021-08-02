@@ -1,0 +1,25 @@
+@charset "UTF-8";
+#mid_first{	
+	width: 900px;
+	padding-top: 5px;
+}
+
+#mid_context1{		
+	height: 240px;		
+	/* 같이 움직이기 */
+	width: 400px;
+	
+}
+#mid_img{
+	width: 500px;
+	height: 430px;
+	float: right;
+	margin-left: 80px;
+}
+#mid_context2{
+		/* 같이 움직이기 */
+	width: 400px;
+}
+#mid_second{
+		padding-bottom: 5px;
+}

@@ -1,0 +1,251 @@
+@charset "UTF-8";
+
+
+#funginginfo {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#titleheader {
+	width: 100%;
+}
+
+#title {
+	text-align: center;
+	margin: 0px auto;
+	padding: 1rem;
+	margin-top: 60px;
+	margin-bottom: 50px;
+	padding-bottom: 0px;
+	-webkit-box-align: center;
+	align-items: center;
+	order: 1;
+	padding-bottom: 0px;
+}
+
+#title a {
+	text-decoration: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, .1);
+}
+
+#titlecate {
+	font-size: 0.9rem;
+	font-weight: 600;
+	padding: 0.6rem;
+	color: rgb(117, 117, 117);
+	background-color: rgb(250, 250, 250);
+	border: 1px solid rgb(239, 239, 239);
+	border-radius: 2px;
+}
+
+.prjTitle{
+	font-weight:bold;
+	font-size:28px;
+	border-bottom:3px solid #ffcece;
+	display:inline-block;
+	margin:0 auto;
+	text-align:center;
+}
+
+#title h1 {
+	font-size: 2.8rem;
+	margin: 1.5rem 0px 1rem;
+	text-align: center;
+}
+
+#productor {
+	font-size: 1rem;
+	font-weight: 600;
+	color: inherit;
+	cursor: pointer;
+}
+
+#img {
+	width: 650px;
+	height: auto;
+	order: 2;
+}
+
+#img span {
+	display: block;
+	height: 0px;
+	margin: 0px;
+	overflow: hidden;
+	padding: 0px 0px 75%;
+	position: relative;
+}
+
+#img img {
+	height: 100%;
+	width: 100%;
+	max-width: 100%;
+	top: 0px;
+	left: 0px;
+	margin: 0px 0px 15px 0px;
+	padding: 0px;
+	position: absolute;
+	border-radius:20px;
+	
+}
+
+progress{
+	width: 80%;
+	float:right;
+	-webkit-appearance: none;
+    appearance: none;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #ecf0f1;
+    border-radius: 5px;
+}
+progress[value]::-webkit-progress-value {
+    border-radius: 5px;
+    background: rgb(250, 100, 98);
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+.rate{
+	clear: right;
+	text-align: right;
+}
+
+#funding-info {
+	width: 100%;
+	order: 3;
+	-webkit-box-flex: 1;
+	flex-grow: 1;
+	max-width: 354px;
+	margin: 0px 0px 0px 28px;
+}
+
+#huwon {
+	height: 280px;
+	width: 100%;
+	display: block;
+	margin: 0px 0px 2rem;
+	padding: 0px;
+}
+
+#huwon1 {
+	margin: 0px 0px 1.75rem;
+}
+
+#huwontab1 {
+	font-size: 1rem;
+	margin-bottom: 1rem;
+}
+
+#huwontab2 {
+	font-size: 2.75rem;
+}
+
+#huwontab3 {
+	font-size: 1.3rem;
+	margin-left: 10px;
+}
+
+#funding-ing {
+	order: 5;
+	background-color: rgb(250, 250, 250);
+	border: 1px solid rgb(239, 239, 239);
+	margin: 0px 0px 1rem;
+	padding: 1rem 1.5rem;
+	width: 100%;
+}
+
+#ing1 {
+	font-weight: 700;
+	line-height: 1.5;
+	margin-bottom: 0.5rem;
+}
+
+#ing2 {
+	line-height: 1.5;
+	font-size: 0.9rem;
+}
+
+.fund{
+	background-color: rgb(250, 100, 98);
+	width:50%;
+	height:80px;
+	border:none;
+	border-radius:15px;
+	font-size: 25px;
+	font-weight:bold;
+	color:white;
+	float:right;
+}
+
+.cantFund{
+	background-color:#636e72;
+	width:50%;
+	height:80px;
+	border:none;
+	border-radius:15px;
+	font-size: 25px;
+	font-weight:bold;
+	color:#b2bec3;
+	float:right;
+}
+
+.fundingPart{
+	width:49%;
+	display:inline-block;
+	margin-bottom:30px;
+}
+.optList{
+	list-style: none;
+}
+
+.optName{
+	font-weight: bold;
+	line-height: 27px;
+	font-size: 20px;
+}
+
+.price{
+	float:right;
+	font-size:17px;
+	font-weight: bold;
+}
+
+.resultPrice{
+	font-size: 30px;
+	text-align: right;
+	margin-bottom: 10px;
+}
+
+.prjGoal{
+	font-size:30px;
+	font-weight: bold;
+	text-align: right;
+}
+
+.contentBox{
+	widtH:80%;
+	margin: 15px auto;
+	border-radius: 15px;
+}
+
+.prjContent{
+	font-size:15px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-left:20px;
+	margin-right:20px;
+	display:inline-block;
+	line-height: 30px;
+}
+
+#additional{	
+	width: 100%;	
+}
+#prjBoard{	
+	width: 95%;	
+}
+
+#projectUserInfo{
+	
+	
+}

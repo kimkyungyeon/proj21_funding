@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="proj21_funding.mapper.QNAMapper">
+
+	<resultMap type="QNA" id="resQNA">
+		<id property="qnaNo" column="QnaNo" />
+		<result property="qnaTitle" column="QnaTitle" />
+		<result property="qnaContent" column="QnaContent" />
+		<result property="qnaDate" column="QnaDate" />
+		<result property="qnaReply" column="QnaReply" />
+		<result property="replyDate" column="ReplyDate" />
+		<result property="qnaFile" column="QnaFile" />
+	</resultMap>
+
+	<resultMap type="QNA" id="Associate" extends="resQNA">
+		<association property="categoryNo"
+			resultMap="proj21_funding.mapper.BoardCategoryMapper.resBC"></association>
+		<association property="adminNo"
+			resultMap="proj21_funding.mapper.AdminMapper.resAdmin"></association>
+		<association property="userNo"
+			resultMap="proj21_funding.mapper.UserInfoMapper.resUser"></association>
+	</resultMap>
+	
+	<sql id="selectSql">
+		select qnaNo, userNo, adminNo, categoryNo, qnaTitle, qnaContent, qnaDate, qnaReply, replyDate, qnaFile
+		  from QNA	
+	</sql>
+	
+	<!-- 페이징 시도중 -->
+	
+	<select id="SelectAllList" resultType="map">
+    	select R1.* FROM(
+			SELECT * FROM QNA order by qnaNo desc
+		) R1
+		LIMIT #{pageSearch}, #{cntPerPage };
+    </select>
+    
+    <select id="QNACount" resultType="int">
+        SELECT count(*) FROM QNA
+    </select>
+    
+    <select id="QNAReplyCount" resultType="int">
+        SELECT count(*) FROM QNA where QnaReply is not null
+    </select>
+	
+	<select id="SelectUserList" resultMap="Associate">
+    	select R1.* FROM(
+			SELECT qnaNo, userNo, adminNo, categoryNo, qnaTitle, qnaContent, qnaDate, qnaReply, replyDate, qnaFile FROM QNA where userNo = #{userNo} order by qnaNo desc
+		) R1
+		LIMIT #{pageSearch}, #{cntPerPage };
+		
+    </select>
+    
+    <select id="QNAUserCount" resultType="int">
+        SELECT count(*) FROM QNA where userNo = #{userNo}
+    </select>
+	<!--  -->
+
+	<select id="selectQNAAll" resultMap="Associate">
+		<include refid="selectSql" />	
+	</select>
+
+	<select id="selectQNAByUserId" resultMap="Associate">
+		<include refid="selectSql" />
+		where userNo = #{userNo}	
+	</select>
+	
+	<select id="selectQNAByBC" resultMap="Associate">
+		<include refid="selectSql" />
+		where categoryNo = #{categoryNo}	
+	</select>
+	
+	<select id="selectQNAByNo" resultMap="Associate">
+		<include refid="selectSql" />
+		where qnaNo = #{qnaNo}	
+	</select>
+	
+	<insert id="insertQNA" parameterType="QNA">
+		insert
+		  into QNA( userNo, categoryNo, qnaTitle, qnaContent, qnaFile )
+		values(#{userNo.userNo}, #{categoryNo.categoryNo}, #{qnaTitle}, #{qnaContent}, #{qnaFile})			
+	</insert>
+	
+	<update id="updateQNA">
+		update QNA
+		   set qnaReply = #{qnaReply}, replyDate = now(), adminNo = #{adminNo.adminNo}
+		 where qnaNo = #{qnaNo}
+	</update>
+	
+	<delete id="deleteQNA">
+		delete
+		  from QNA
+		 where qnaNo = #{qnaNo}	
+	</delete>
+	
+	<select id="selectQnaListByMap" resultMap="Associate">
+		select R1.*,bc.*,u.*,a.*  FROM(
+			SELECT * FROM QNA 
+		) R1 join boardcategory bc on R1.categoryno = bc.categoryno 
+			 join userinfo u on R1.userNo = u.userno 
+			 left join admin a on r1.Adminno = a.AdminNo  
+		<where>
+			<choose>
+				<when test="replyYn.equals('total')"></when>
+				<when test="!replyYn.equals('total')">
+					Qnareply is null
+				</when>
+			</choose>
+			<choose>
+				<when test="category.equals('total')"></when>
+				<when test="!category.equals('total')">
+					and R1.categoryNo=#{category}
+				</when>
+			</choose>
+			<choose>
+				<when test="keyword.equals('total')"></when>
+				<when test="keyword.equals('qnaTitle')">
+				and qnaTitle LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="keyword.equals('qnaContent')">
+				and qnaContent LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="keyword.equals('nickname')">
+				and nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+			</choose>
+		</where>
+			 order by qnaNo desc LIMIT #{pageSearch}, #{cntPerPage };
+	</select>
+	
+	<select id="selectQnaCountByMap" resultType="int">
+		select count(qnaNo) FROM(
+			SELECT * FROM QNA 
+		) R1 join boardcategory bc on R1.categoryno = bc.categoryno 
+			 join userinfo u on R1.userNo = u.userno 
+			 left join admin a on r1.Adminno = a.AdminNo  
+		<where>
+			<choose>
+				<when test="replyYn.equals('total')"></when>
+				<when test="!replyYn.equals('total')">
+					Qnareply is null
+				</when>
+			</choose>
+			<choose>
+				<when test="category.equals('total')"></when>
+				<when test="!category.equals('total')">
+					and R1.categoryNo=#{category}
+				</when>
+			</choose>
+			<choose>
+				<when test="keyword.equals('total')"></when>
+				<when test="keyword.equals('qnaTitle')">
+				and qnaTitle LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="keyword.equals('qnaContent')">
+				and qnaContent LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="keyword.equals('nickname')">
+				and nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+			</choose>
+		</where>
+	</select>
+</mapper>

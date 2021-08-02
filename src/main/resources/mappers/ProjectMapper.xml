@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="proj21_funding.mapper.ProjectMapper">
+		<!-- property는 dto  column는 sql 컬럼 -->
+		<resultMap type="Project" id="resProject">
+				<id property="prjNo" column="PrjNo"/>
+				<result property="prjName" column="PrjName"/>
+				<result property="prjContent" column="PrjContent"/>
+				<result property="prjGoal" column="PrjGoal"/>
+				<result property="startDate" column="StartDate"/>
+				<result property="endDate" column="EndDate"/>
+				<result property="payDate" column="PayDate"/>
+				<result property="endYn" column="EndYN"/>
+				<result property="totalPrice" column="totalPrice"/>				
+		</resultMap>	
+		
+		<!-- UserNo 추가하기 Associate로 -->
+		<resultMap type="Project" id="AssociateResUserInfo" extends="resProject">
+			<association property="pCategoryNo" resultMap="proj21_funding.mapper.PrjCategoryMapper.resPrjCategory"></association>	
+			<association property="userNo" resultMap="proj21_funding.mapper.UserInfoMapper.resUser" ></association>
+		</resultMap>
+	 
+		<select id="selectProjectListAll" resultType="Project" resultMap="AssociateResUserInfo">
+			select PrjNo,p.UserNo, PrjName, PrjContent, PrjGoal,
+			StartDate, EndDate,	PayDate, EndYN, u.UserId , u.UserName 
+			from project p join userinfo u on p.userno= u.userno
+		</select>			
+		
+		<select id="selectProjectByNo" resultMap="resProject">
+			select PrjNo,p.UserNo, PrjName, PrjContent, PrjGoal,
+			StartDate, EndDate,	PayDate, EndYN, u.UserId , u.UserName 
+			from project p join userinfo u 
+			on p.userno = u.UserNo 
+			where prjNo = #{prjNo};
+		</select>	
+		
+		<select id="selectProjectByUser" resultMap="resProject">
+			select PrjNo, UserNo, PrjName, EndDate
+			  from project
+			 where UserNo = #{userNo.userNo} and EndDate >= now()
+		</select>		
+		
+		<select id="showJoinPrjAndCategory" resultMap="AssociateResUserInfo">
+				select 
+							p.PrjNo, p.UserNo, pc.pCategoryNo, pc.pCategoryName, 
+							p.PrjName, p.PrjContent, p.PrjGoal, p.EndDate, p.PayDate
+					from project p join prjcategory pc on p.pCategoryNo = pc.pCategoryNo 
+						where  p.PrjNo =#{prjNo}
+		
+		</select>
+		
+		<!--성공임박 프로젝트 달성률 80프로이상  -->
+		<select id="selectProjectSuccessImbak" 
+			resultMap="AssociateResUserInfo,
+						 proj21_funding.mapper.PrjOptionMapper.resOption,
+						 proj21_funding.mapper.FundingInfoMapper.resFundingInfo"
+		>
+			select p.prjno, p.userno, p.prjname, p.prjcontent, p.startdate, p.enddate,p.PayDate ,u.UserId , u.UserName ,
+					sum(optprice), p.PrjGoal,sum(optprice)/PrjGoal*100 
+	   		  from fundinginfo f 
+				  join prjoption o on o.optno= f.OptNo 
+				  join project p on o.prjno = p.PrjNo 
+				  join userinfo u on u.userno = p.userno
+			 group by o.PrjNo having sum(optprice)/PrjGoal*100>80;
+		</select>
+		
+			<!-- 프로젝트 insert (Transaction사용) -->
+		 <insert id="insertProject" parameterType="Project">
+				insert into project(
+						UserNo, pCategoryNo, PrjName, PrjContent, PrjGoal, 
+						StartDate, EndDate, PayDate) 
+				values(
+						#{userNo.userNo}, #{pCategoryNo.pCategoryNo}, #{prjName}, #{prjContent}, #{prjGoal},
+						 now(), #{endDate}, now())
+					<selectKey keyProperty="prjNo" resultType="int">
+							SELECT last_insert_id()
+					</selectKey>
+		</insert>
+		
+	 	<!-- 프로젝트 수정 -->
+		<update id="updateProject" >
+				update project 
+					set 
+					pCategoryNo = #{pCategoryNo.pCategoryNo}, 
+					PrjName = #{prjName}, PrjContent =#{prjContent}, 
+					PrjGoal = #{prjGoal}, EndDate = #{endDate}
+				where prjno = #{prjNo.prjNo}
+		</update>
+		
+		
+		<!-- 프로젝트and 옵션 조인 업데이트 -->
+		<update id="joinUpdateProjectAndPrjoptionByPrjNo" parameterType="map"  >		
+					update project as p inner join prjoption as op
+						on p.PrjNo = op.PrjNo 
+				set 
+						p.pCategoryNo = #{pCateNo},
+						p.PrjName = #{pName}, p.PrjContent = #{pContent}, p.PrjGoal = #{pGoal},
+						p.EndDate = #{eDate},
+						op.OptName = #{oName}, op.OptPrice =#{oPrice}, op.OptContent = #{oContent}
+				where p.PrjNo = #{pNo}		
+		</update>
+		
+		<!-- 프로젝트 삭제 -->
+		<delete id="removeProject">
+				delete from project 
+					where PrjNo  = #{prjNo}		
+		</delete>
+		
+		<!-- 마감날짜 지나면 endyn 1로 수정  -->
+		<update id="updateEndYn">
+			update project set endyn =1 where <![CDATA[EndDate <now() ]]>;
+		</update>
+		
+</mapper>

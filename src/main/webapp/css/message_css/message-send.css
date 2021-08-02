@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+#messageFormArea{	
+display: flex;
+}
+
+#menu{
+	border: none;	
+	padding-top: 30px;	
+}
+
+#message{
+	text-align: center;
+	width: 850px;
+}
+
+h2{text-align: left;}
+#messageForm{
+	border: none;	
+}
+table tr th{
+	background-color: #A5E3E6;
+}
+
+table tr th:nth-of-type(1){
+	width: 100px;
+}
+
+table tr th:nth-of-type(2){
+	width: 150px;
+}
+table tr th:nth-of-type(3){
+	width: 400px;
+}
+table tr th:nth-of-type(4){
+	width: 200px;
+}
+table tr td:nth-of-type(3){	
+	white-space: nomal;
+	overflow:hidden;
+	word-wrap:break-word;
+	display:-webkit-box;
+	 -webkit-line-clamp:1;
+	 -webkit-box-orient:vertical;
+}
+#btn{
+	text-align: right;
+}

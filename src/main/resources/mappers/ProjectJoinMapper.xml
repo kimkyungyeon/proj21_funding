@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="proj21_funding.mapper.ProjectJoinMapper">
+	<resultMap type="ProjectJoin" id="resProjectJoin">
+		<id property="prjNo" column="prjNo"/>
+		<result property="prjManager" column="prjManager"/>
+		<result property="managerName" column="managerName"/>
+		<result property="prjName" column="prjName"/>
+		<result property="userId" column="userId"/>
+		<result property="prjContent" column="prjContent"/>
+		<result property="prjGoal" column="prjGoal"/>
+		<result property="startDate" column="startDate"/>
+		<result property="endDate" column="endDate"/>
+		<result property="payDate" column="payDate"/>
+		<result property="endYn" column="endYn"/>
+		<result property="optNo" column="optNo"/>
+		<result property="optName" column="optName"/>
+		<result property="optPrice" column="optPrice"/>
+		<result property="optContent" column="optContent"/>
+		<result property="fundingNo" column="fundingNo"/>
+		<result property="sponsor" column="fundingUser"/>
+		<result property="sponsorName" column="fundingUserName"/>
+		<result property="accountNo" column="accountNo"/>
+		<result property="payYn" column="payYn"/>
+		<result property="rate" column="rate"/>
+		<result property="totalCount" column="totalCount"/>
+		<result property="totalPrice" column="totalPrice"/>
+		<result property="pCategoryNo" column="pCategoryNo"/>
+		<result property="pCategoryName" column="pCategoryName"/>
+	</resultMap>
+	
+	<select id="selectProjectJoinAll" resultMap="resProjectJoin">
+	select p.prjno,
+			 if(sum(optPrice)>0,sum(optPrice),0) as totalPrice,
+			  p.Prjname,
+			  p.prjgoal,
+			  u.nickname as prjManager
+			,count(fundingno) as totalCount,
+			prjContent,
+			 c.pcategoryno,
+			  c.pcategoryname,
+			   startDate,
+			    endDate,
+			     round(sum(optprice)/prjgoal*100,2) as rate
+		  from fundinginfo f 
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  join prjCategory c on p.pcategoryno = c.pcategoryno
+		 group by p.prjNo 
+	</select>
+	
+	<!-- 성공임박 -->
+	<select id="selectProjectSuccessImbak" resultMap="resProjectJoin">
+	select p.prjno, if(sum(optPrice)>0,sum(optPrice),0) as totalPrice, p.Prjname, p.prjgoal, u.nickname as prjManager
+			,count(fundingno) as totalCount
+		  from fundinginfo f 
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		 group by p.prjNo having sum(optprice)/PrjGoal*100>80;
+	</select>
+	
+	<select id="selectProjectJoinByPrjName" resultMap="resProjectJoin" parameterType="String">
+		select p.prjno, if(sum(optPrice)>0,sum(optPrice),0) as totalPrice, p.Prjname, p.prjgoal, u.nickname as prjManager
+			,count(fundingno) as totalCount
+		  from fundinginfo f 
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  where prjName LIKE CONCAT('%', #{prjName}, '%')
+		 group by p.prjNo;
+	</select>
+	
+	<select id="selectProjectJoinByPrjManager" resultMap="resProjectJoin" parameterType="String">
+		select p.prjno, if(sum(optPrice)>0,sum(optPrice),0) as totalPrice, p.Prjname, p.prjgoal, u.nickname as prjManager
+			,count(fundingno) as totalCount
+		  from fundinginfo f 
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  where u.nickname LIKE CONCAT('%', #{prjManager}, '%')
+		 group by p.prjNo;
+	</select>
+	
+	<select id="selectProjectJoinByPrjNo" resultMap="resProjectJoin" parameterType="int">
+	select p.prjno, if(sum(optPrice)>0,sum(optPrice),0) as totalPrice, p.Prjname,p.prjContent, p.prjgoal, u.nickname as prjManager,u.userName as managerName
+			,count(fundingno) as totalCount, round(sum(optprice)/prjgoal*100,2) as rate
+		  from fundinginfo f
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  where p.prjNo = #{prjNo}
+		 group by p.prjNo;
+	</select>
+
+	<select id="selectSumCountGroupByUserNo" resultMap="resProjectJoin">
+			select u.userno,count(fundingno) as totalCount, if(sum(optprice)>0,sum(optprice),0) as totalPrice
+				from userinfo u left join fundinginfo f on f.userno = u.userno 
+				left join prjoption o on f.optno = o.optno
+				group by u.userno;
+	</select>
+	
+	<select id="selectSuccessProjectGroupByUserNo" resultMap="resProjectJoin">
+	select u.userno as prjManager, count(prjno) as totalCount from userinfo u  left join(select if(isnull(sum(optprice)),0,sum(optprice)) as achieve, prjgoal, p.userno , p.prjno 
+		from project p 
+		left join fundinginfo f on p.prjno = f.prjno 
+		left join prjoption o on f.optno = o.optno group by p.prjno having (achieve >prjgoal))as a on u.userno = a.userno group by u.userno;
+	</select>
+	
+	<select id="selectProjectGroupByUserNo" resultMap="resProjectJoin">
+	select count(p.prjno) as totalCount,u.userno as prjManager
+		from project p right join userinfo u on p.userno = u.userno 
+		group by u.userno; 
+	</select>
+	<!--프로젝트 별 후원자 리스트  -->
+	<select id="selectSponsorListByPrjNo" resultMap="resProjectJoin">
+	select fundingNo, prjName , f.optNo as optNo , optPrice,optName,optContent, u.username as fundingUserName ,u.nickname as fundingUser ,u.userid as userId
+	from userinfo u left join fundinginfo f on u.userno = f.userno
+					join project p on p.prjno = f.PrjNo 
+					join prjoption o on o.optno= f.optno where p.prjNo= #{prjNo};
+	</select>
+	
+	<select id="selectProjectJoinByPcategoryno" resultMap="resProjectJoin">
+	select p.prjno, if(sum(optPrice)>0,sum(optPrice),0) as totalPrice, p.Prjname, p.prjgoal, u.nickname as prjManager
+			,count(fundingno) as totalCount, c.pcategoryno, c.pcategoryname, endDate, round(sum(optprice)/prjgoal*100,2) as rate
+		  from fundinginfo f 
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  join prjCategory c on p.pcategoryno = c.pcategoryno
+		  where c.pcategoryno = #{pcategoryno}
+		 group by p.prjNo;
+	</select>
+	
+	<select id="selectProjectJoinByMap" resultMap="resProjectJoin">
+	select p.prjno, if(sum(optPrice)>0,sum(optPrice),0) as totalPrice, p.Prjname, p.prjgoal, u.nickname as prjManager,u.userName as managerName
+			,count(fundingno) as totalCount,prjContent, c.pcategoryno, c.pcategoryname, startDate, endDate, round(sum(optprice)/prjgoal*100,2) as rate
+		  from fundinginfo f 
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  join prjCategory c on p.pcategoryno = c.pcategoryno
+		 group by p.prjNo
+		 having
+		<!--  <if test="listMap != null"> -->
+			 <if test="successYn.equals('successed')">
+			 	<![CDATA[(rate >= 100)]]>
+			 </if>
+			 <if test="successYn.equals('all')">
+			 	<![CDATA[(rate >100 or rate<=100 or rate is null)]]>
+			 </if>
+			 <choose>
+			 	<when test="keyword.equals('total')"></when>
+			 	<when test="keyword.equals('prjName')">
+			 		and prjName LIKE CONCAT('%', #{searchKeyword}, '%')
+			 	</when>
+			 	<when test="keyword.equals('prjManager')">
+			 		and prjManager LIKE CONCAT('%', #{searchKeyword}, '%')
+			 	</when>
+			 	<when test="keyword.equals('nickname')">
+			  		and nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+			 	</when>
+			 </choose>
+			 <if test="category.equals('total')">
+			 </if>
+			 <if test="!category.equals('total')">
+			 and pCategoryNo = #{category}
+			 </if>
+			 order by p.prjNo desc LIMIT #{pageSearch}, #{cntPerPage } ;
+	</select>
+	
+	<select id="selectProjectJoinByMapCount" resultType="int">
+	select count(R1.prjno) from (select p.prjno as prjno, if(sum(optPrice)>0,sum(optPrice),0) as totalPrice, p.Prjname, p.prjgoal, u.nickname as prjManager
+			,count(fundingno) as totalCount,prjContent, c.pcategoryno, c.pcategoryname, startDate, endDate, round(sum(optprice)/prjgoal*100,2) as rate
+		  from fundinginfo f 
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  join prjCategory c on p.pcategoryno = c.pcategoryno
+		 group by p.prjNo
+		 having
+		<!--  <if test="listMap != null"> -->
+			 <if test="successYn.equals('successed')">
+			 	<![CDATA[(rate >= 100)]]>
+			 </if>
+			 <if test="successYn.equals('all')">
+			 	<![CDATA[(rate >100 or rate<=100 or rate is null)]]>
+			 </if>
+			 <choose>
+			 	<when test="keyword.equals('total')"></when>
+			 	<when test="keyword.equals('prjName')">
+			 		and prjName LIKE CONCAT('%', #{searchKeyword}, '%')
+			 	</when>
+			 	<when test="keyword.equals('nickname')">
+			 		and nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+			 	</when>
+			 	<when test="keyword.equals('managerName')">
+			  		and managerName LIKE CONCAT('%', #{searchKeyword}, '%')
+			 	</when>
+			 </choose>
+			 <if test="category.equals('total')">
+			 </if>
+			 <if test="!category.equals('total')">
+			 and pCategoryNo = #{category}
+			 </if>
+			 ) as R1
+	</select>
+	
+	<select id="selectProjectSumCountAll" resultMap="resProjectJoin">														<!-- prjno : 프로젝트 갯수  -->
+	select ifnull(sum(optprice),0) as totalprice, ifnull(count(fundingno),0) as totalcount , ifnull(count(distinct (p.prjNo)),0) as prjno
+				from project p left join fundinginfo f on p.prjno = f.prjno
+			   left	join prjoption o on o.optno = f.optno;
+	</select>
+	
+	
+	<select id="selectProjectListByMap" resultMap="resProjectJoin">
+	select p.prjno,
+			 if(sum(optPrice)>0,sum(optPrice),0) as totalPrice,
+			  p.Prjname,
+			  p.prjgoal,
+			  u.nickname as prjManager
+			,count(fundingno) as totalCount,
+			prjContent,
+			 c.pcategoryno,
+			  c.pcategoryname,
+			   startDate,
+			    endDate,
+			     round(sum(optprice)/prjgoal*100,2) as rate
+		  from fundinginfo f 
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  join prjCategory c on p.pcategoryno = c.pcategoryno
+		 group by p.prjNo 
+	having 
+			<if test="finishYn.equals('finished')">
+			1=1
+			 </if>
+			 <if test="finishYn.equals('notFinished')">
+			 	<![CDATA[ p.endDate > now()]]>
+			</if>
+		  <choose>
+			 	<when test="keyword.equals('total')"></when>
+			 	<when test="keyword.equals('prjName')">
+			 		and prjName LIKE CONCAT('%', #{searchKeyword}, '%')
+			 	</when>
+			 	<when test="keyword.equals('prjManager')">
+			 		and prjManager LIKE CONCAT('%', #{searchKeyword}, '%')
+			 	</when>
+		</choose>
+		<choose>
+			<when test="category == null">
+			</when>
+			<when test="category != null">
+				and c.pcategoryNo = #{category}
+			</when>
+		</choose>
+		order by p.prjNo desc LIMIT #{pageSearch}, #{cntPerPage } ;
+	</select>
+	
+	<select id="selectProjectListByMapCount" resultType="int">
+	select count(r1.prjno) from	(select p.endDate, p.prjno,p.prjname,u.Nickname as prjManager,c.pcategoryno
+		  from fundinginfo f 
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  join prjCategory c on p.pcategoryno = c.pcategoryno
+		 group by p.prjNo 
+	having 1=1
+			<if test="finishYn.equals('finished')">
+			 </if>
+			 <if test="finishYn.equals('notFinished')">
+			 	 and <![CDATA[ p.endDate > now()]]>
+			</if>
+		  <choose>
+			 	<when test="keyword.equals('total')"></when>
+			 	<when test="keyword.equals('prjName')">
+			 		and prjName LIKE CONCAT('%', #{searchKeyword}, '%')
+			 	</when>
+			 	<when test="keyword.equals('prjManager')">
+			 		and prjManager LIKE CONCAT('%', #{searchKeyword}, '%')
+			 	</when>
+			 </choose>
+			 <choose>
+			<when test="category == null">
+			</when>
+			<when test="category != null">
+				and c.pcategoryNo = #{category}
+			</when>
+		</choose>
+			 ) as r1
+	</select>
+	
+	
+	<select id="selectMainSuccessImbak" resultMap="resProjectJoin">
+	select p.prjno,
+			 if(sum(optPrice)>0,sum(optPrice),0) as totalPrice,
+			  p.Prjname,
+			  p.prjgoal,
+			  u.nickname as prjManager
+			,count(fundingno) as totalCount,
+			prjContent,
+			 c.pcategoryno,
+			  c.pcategoryname,
+			   startDate,
+			    endDate,
+			     ifnull(round(sum(optprice)/prjgoal*100,2),0) as rate
+		  from fundinginfo f 
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  join prjCategory c on p.pcategoryno = c.pcategoryno
+		 group by p.prjNo having <![CDATA[rate < 100 and enddate > now()]]> order by rate desc limit 4
+	</select>
+	
+	<select id="selectMainJumok" resultMap="resProjectJoin">
+	select p.prjno,
+			 if(sum(optPrice)>0,sum(optPrice),0) as totalPrice,
+			  p.Prjname,
+			  p.prjgoal,
+			  u.nickname as prjManager
+			,count(fundingno) as totalCount,
+			prjContent,
+			 c.pcategoryno,
+			  c.pcategoryname,
+			   startDate,
+			    endDate,
+				ifnull(round(sum(optprice)/prjgoal*100,2),0) as rate
+		  from fundinginfo f 
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  join prjCategory c on p.pcategoryno = c.pcategoryno
+		 group by p.prjNo having <![CDATA[enddate > now()]]> order by rate desc limit 4;
+	</select>
+	
+	<select id="selectMainMagamImbak" resultMap="resProjectJoin">
+	select p.prjno,
+			 if(sum(optPrice)>0,sum(optPrice),0) as totalPrice,
+			  p.Prjname,
+			  p.prjgoal,
+			  u.nickname as prjManager
+			,count(fundingno) as totalCount,
+			prjContent,
+			 c.pcategoryno,
+			  c.pcategoryname,
+			   startDate,
+			    endDate,
+			     ifnull(round(sum(optprice)/prjgoal*100,2),0) as rate
+		  from fundinginfo f 
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  join prjCategory c on p.pcategoryno = c.pcategoryno
+		 group by p.prjNo having <![CDATA[enddate > now()]]> order by enddate asc limit 4;
+	</select>
+	
+	<select id="selectMainNewProject" resultMap="resProjectJoin">
+	select p.prjno,
+			 if(sum(optPrice)>0,sum(optPrice),0) as totalPrice,
+			  p.Prjname,
+			  p.prjgoal,
+			  u.nickname as prjManager
+			,count(fundingno) as totalCount,
+			prjContent,
+			 c.pcategoryno,
+			  c.pcategoryname,
+			   startDate,
+			    endDate,
+			     ifnull(round(sum(optprice)/prjgoal*100,2),0) as rate
+		  from fundinginfo f 
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  join prjCategory c on p.pcategoryno = c.pcategoryno
+		 group by p.prjNo having <![CDATA[enddate > now()]]> order by startdate desc limit 4;
+	</select>
+	
+	<select id="selectSalesRankingByProject" resultMap="resProjectJoin">
+	select p.prjno,
+			 if(sum(optPrice)>0,sum(optPrice),0) as totalPrice,
+			  p.Prjname,
+			  p.prjgoal,
+			  u.nickname as prjManager
+			,count(fundingno) as totalCount,
+			prjContent,
+			 c.pcategoryno,
+			  c.pcategoryname,
+			   startDate,
+			    endDate,
+			    f.payyn,
+				ifnull(round(sum(optprice)/prjgoal*100,2),0) as rate
+		  from fundinginfo f
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		  join prjCategory c on p.pcategoryno = c.pcategoryno
+		 group by p.prjNo having rate >100  and f.payyn = 1 order by totalprice desc limit 5;
+	</select>
+	
+	<select id="selectSponsorRanking" resultMap="resProjectJoin">
+	select count(f.userno) as totalCount , u.nickname as fundingUserName, u.userId as fundingUser
+	  from (select * from fundinginfo where payyn = 1) f join userinfo u on f.userno = u.UserNo 
+	  group by f.userNo order by totalcount desc limit 5;
+	</select>
+</mapper>

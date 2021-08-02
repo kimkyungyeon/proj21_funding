@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'NanumBarunGothic';
+	font-style: normal;
+	font-weight: 400;
+	src:
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
+	src:
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix')
+		format('embedded-opentype'),
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff')
+		format('woff'),
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf')
+		format('truetype');
+}
+
+@font-face {
+	font-family: 'NanumBarunGothic';
+	font-style: normal;
+	font-weight: 700;
+	src:
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot');
+	src:
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix')
+		format('embedded-opentype'),
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff')
+		format('woff'),
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf')
+		format('truetype')
+}
+
+@font-face {
+	font-family: 'NanumBarunGothic';
+	font-style: normal;
+	font-weight: 300;
+	src:
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot');
+	src:
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix')
+		format('embedded-opentype'),
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff')
+		format('woff'),
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf')
+		format('truetype');
+}
+
+.nanumbarungothic * {
+	font-family: 'NanumBarunGothic', sans-serif;
+}
+
+#userqnaall{
+	margin: 30px 0px 50px;
+	border: none;
+}
+
+.userqna {
+	margin: 0px;
+	padding: 0;
+	font-family : 'NanumBarunGothics', sans-serif;
+	line-height: 200%;
+	cursor: pointer;
+}
+
+.userqna ul:last-child {
+	border: 1px solid #e6e8e8;
+}
+
+.question {
+	list-style: none;
+	margin: 10px 0px;
+	font-size: 0.9em;
+	border-bottom: 1px solid #e6e8e8;
+}
+
+#ct{
+	font-weight: 700;
+	color: black;
+}
+
+#q {
+	font-weight: 700;
+	color:#007ac3;
+	text-decoration: none;
+}
+
+#qtitle{
+	color: black;
+	text-decoration: none;
+}
+
+#afalse {
+	float:right;
+	margin-right: 20px;
+	font-weight: 700;
+	color: #87CEFA;
+	text-decoration: none;
+}
+
+#atrue{
+	float: right;
+	margin-right: 20px;
+	font-weight: 700;
+	color: #CD5C5C;
+	text-decoration: none;
+}
+
+#qnadate {
+	float:right;
+	margin-right: 20px;
+	color: black;
+	text-decoration: none;
+}

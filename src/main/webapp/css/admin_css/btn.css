@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.goMain{
+	width: 120px;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	background-image: none;
+	border-radius: 4px;
+	background-color:rgb(240,240,240);
+	margin-right:5px;
+}

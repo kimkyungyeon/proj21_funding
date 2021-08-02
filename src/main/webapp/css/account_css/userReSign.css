@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+#reSignArea{
+	/*정 가운데 배치 */
+	display: flex;
+	flex-direction:column;	
+	justify-content: center;
+	align-items: center;
+	height: 55vh;
+	font-size: 16px;
+		
+}
+#reSignForm{
+	width: 280px;
+	border: none;
+}
+
+#errors{		
+	margin-top: -15px;
+	
+	padding-left: 30%;
+	line-height: 13px;
+	color: red;
+	font-size: 13px;
+}
+
+#btn{
+	text-align: right;
+}

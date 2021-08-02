@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+#signUpArea {
+	/*정 가운데 배치 */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 60vh;
+	font-size: 16px;
+}
+
+#signUpForm {
+	text-align: center;
+	width: 100%;
+	margin: 50px;
+}
+
+#btn {
+	margin-top: 30px;
+	font-weight: bold;
+}
+
+.btn1{
+	text-decoration: none;
+}
+
+.btn1 button{
+	background-color: white;
+	color: gray;
+	margin-top: 20px;
+	display: inline-flex;
+	height: 36px;
+	min-width: 170px;
+	max-width: 170px;
+	-webkit-box-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	align-items: center;
+	border: 1px solid rgba(13, 13, 13, 0.4);
+	cursor: pointer;
+	min-height: 36px;
+	font-size: 14px;
+	line-height: 27px;
+	border-radius: 4px;
+	font-weight: 500;
+	transition: all 0.3s ease-in-out 0s;
+	text-align: center;
+	text-decoration: none;
+}

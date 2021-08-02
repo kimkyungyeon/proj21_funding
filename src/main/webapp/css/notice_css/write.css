@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+.category{
+	height: 40px;
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 0 25px 0 11px;
+    border: 1px solid #ebecef;
+    background: #fff;
+    text-align: left;
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 10px;
+}
+
+.boardTitle{
+    display: block;
+    width: 100%;
+    min-height: 40px;
+    padding: 11px 12px 10px;
+    border: 1px solid #ebecef;
+    box-sizing: border-box;
+    overflow: hidden;
+    resize: none;
+    word-break: break-all;
+    font-size: 15px;
+    letter-spacing: -.23px;
+    line-height: 17px;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+.commandCell {
+	display: flex;
+	flex-wrap: wrap;
+	-webkit-box-pack: center;
+	justify-content: center;
+}
+
+.menubutton { /* 공지글 작성하기 */
+	width: 167px;
+	height: 44px;
+	font-size: 16px;
+	line-height: 27px;
+	letter-spacing: -0.02em;
+	font-weight: normal;
+	color: rgb(109, 109, 109);
+	border: 1px solid rgb(230, 230, 230);
+	border-radius: 4px;
+	padding: 0px;
+	box-sizing: border-box;
+	background: rgb(255, 255, 255);
+	margin: 0px;
+	cursor: pointer;
+}

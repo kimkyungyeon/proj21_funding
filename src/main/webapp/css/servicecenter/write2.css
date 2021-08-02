@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+.writeendform {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 60vh;
+	font-size: 16px;
+	text-align: center;
+}
+
+.complete {
+	margin-top: 30px;
+	font-weight: bold;
+}
+
+.buyeon {
+	font-size: 12px;
+}
+
+.time {
+	font-size: 12px;
+}
+
+.time span {
+	font-weight: bold;
+	color: red;
+}
+
+#btn {
+	margin-top: 30px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#btn a{
+	text-decoration: none;
+}
+
+input[type=button]{
+	background-color: white;
+	color: gray;
+	margin-top: 20px;
+	display: inline-flex;
+	height: 36px;
+	min-width: 170px;
+	max-width: 170px;
+	-webkit-box-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	align-items: center;
+	border: 1px solid rgba(13, 13, 13, 0.4);
+	cursor: pointer;
+	min-height: 36px;
+	font-size: 14px;
+	line-height: 27px;
+	border-radius: 4px;
+	font-weight: 500;
+	transition: all 0.3s ease-in-out 0s;
+	text-align: center;
+	text-decoration: none;
+}

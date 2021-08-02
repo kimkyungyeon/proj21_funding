@@ -1,0 +1,106 @@
+@charset "UTF-8";
+ .list_main{
+	border:none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin:0 auto;
+	flex-direction: column;
+	width:100%;
+	height:100%;
+}
+.list_table{
+	border-collapse: collapse;
+	width:100%;
+	height:100%;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+h4{
+		margin:0 auto;
+		display: flex;
+		justify-content: left;
+		align-items: left;
+	 	margin-left: 50px; 
+	 	margin-top: 30px;
+	 	margin-bottom: 10px;
+}
+.success{
+	color: crimson;
+	font-size: 1.1em;
+	font-weight: bold;
+	
+}
+#column{
+	 background-color:#A5E3E6;
+}
+th, td{
+	text-align: center;	
+}
+th{
+	border-bottom: 3px solid #97d5fb;
+	padding:5px;
+	font-size: 1em;
+	font-weight: bold;
+}
+td{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	
+}
+.count{
+	border-right: 1px solid #cdcdcf;
+}
+#pointer{
+	color: #3f72af;
+	text-decoration: none;
+	cursor: pointer;
+}
+#foot_btn{	
+	margin-top:-20px;
+	text-align: center;	
+}
+.btns{
+	width: 150px;
+    height: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    background-color: #ff7675;
+    border-radius: 5px;
+    border: none;
+     cursor: pointer;
+}
+.size{
+	  border-bottom: 1px solid #ccc;
+}
+/* 번호 */
+.size td:nth-of-type(1) {
+}
+/* 제목 */
+.size td:nth-of-type(2) {
+	width:530px;
+	
+}
+/* 금액 */
+.size td:nth-of-type(3) {
+}
+/* 달성률 */
+.size td:nth-of-type(4) {
+}
+/* 시작일 */
+.size td:nth-of-type(5) {
+}
+/* 마감일 */
+.size td:nth-of-type(6) {
+
+}
+/* 결재일 */
+.size td:nth-of-type(7) {
+	
+}
+/* 진행상황 */
+.size td:nth-of-type(8) {
+}
+

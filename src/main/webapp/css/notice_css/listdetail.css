@@ -1,0 +1,128 @@
+@charset "UTF-8";
+
+.top {
+	margin: 0px;
+	padding: 20px 0px;
+	border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.top_title {
+	padding: 32px 16px 18px;
+}
+
+.top_category {
+	display: inline-flex;
+	word-break: keep-all;
+	padding: 0px 20px;
+	font-size: 14px;
+}
+
+.cate {
+	margin: 0px 24px 0px 0px;
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	height: 100%;
+}
+
+.catetext {
+	font-weight: bold;
+	color: rgb(61, 61, 61);
+	text-decoration: none;
+}
+
+.notice {
+	margin: 0;
+	padding: 0;
+	font-size: 28pt;
+	font-weight: normal;
+	font-size: 30px;
+	line-height: 45px;
+	letter-spacing: -0.03em;
+}
+
+.header_title {
+	padding: 0px 16px 16px;
+	border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.group {
+	display: block;
+	font-size: 12px;
+	line-height: 19px;
+	letter-spacing: -0.01em;
+	font-weight: bold;
+	color: rgb(158, 158, 158);
+	margin-bottom: 2px;
+}
+
+.title {
+	font-size: 20px;
+	line-height: 29px;
+	letter-spacing: -0.025em;
+	font-weight: bold;
+	color: rgb(61, 61, 61);
+	margin-bottom: 8px;
+}
+
+.date {
+	font-size: 12px;
+	letter-spacing: -0.01em;
+	line-height: 1.54;
+	color: rgb(109, 109, 109);
+}
+
+.controllbutton {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: none;
+	border: none;
+	font-size: 12px;
+	letter-spacing: -0.01em;
+	line-height: 1.54;
+	color: rgb(109, 109, 109);
+	cursor: pointer;
+}
+
+.detail {
+	margin: 16px 0px 64px;
+	padding: 40px 40px 88px;
+	border-radius: 4px;
+	border: 1px solid rgb(230, 230, 230);
+	box-sizing: border-box;
+}
+
+.content { /*본문*/
+	font-size: 16px;
+	line-height: 27px;
+	letter-spacing: -0.02em;
+	padding: 24px 16px 57px;
+}
+
+.bottommenu {
+	display: flex;
+	flex-wrap: wrap;
+	-webkit-box-pack: center;
+	justify-content: center;
+}
+
+#go_notice {
+	cursor: pointer;
+}
+
+.returnlist { /* 목록으로 돌아가기 */
+	width: 167px;
+	height: 44px;
+	font-size: 16px;
+	line-height: 27px;
+	letter-spacing: -0.02em;
+	font-weight: normal;
+	color: rgb(109, 109, 109);
+	border: 1px solid rgb(230, 230, 230);
+	border-radius: 4px;
+	padding: 0px;
+	box-sizing: border-box;
+	background: rgb(255, 255, 255);
+	margin: 0px;
+}

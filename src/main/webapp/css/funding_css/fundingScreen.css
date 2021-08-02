@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+img{
+	width:200px;
+	hegiht:200px;
+	border-radius:10px;
+}
+
+.prjInfo{
+	border-bottom : 2px solid grey;
+	height: 220px;
+}
+
+.achiRate{
+	color:red;
+}
+
+.divPrjInfo{
+	padding:50 60 20 60;
+	line-height:30px;
+}
+
+.tdTitle{
+	height:50px;
+	width:150px;
+	text-align:center;
+	font-weight: bold;
+	font-size:20px;
+}
+
+
+.prjTitle{
+	font-size:25px;
+	font-weight:bold;
+}
+
+.tbGiftInfo{
+	width:60%;
+}
+
+.tdPrice{
+	color:red;
+}
+.textInput{
+	height:30px;
+}
+.btnConfig{
+	background-color: rgb(250, 100, 98);
+	width:100px;
+	height:30px;
+	border:none;
+	border-radius:5px;
+	font-weight:bold;
+	color:white;
+}
+#btnAdd{
+	height:30px;
+}
+#payText{
+	font-weight: bold;
+	font-size:20px;
+}
+#textNo{
+	width:200px;
+	height:30px;
+}
+
+#textNo:invalid{
+	border:3px solid red;
+}
+.info{
+	padding:20px;
+}
+
+.btnSubmit{
+	float:left;
+	width:50%;
+	background-color: #fab1a0;
+	color:white;
+	border:none;
+	border-radius:15px;
+	height:50px;
+	font-size:25px;
+	font-weight:bold;
+}
+.btnSubmit:hover{
+	background-color: rgb(250, 100, 98);
+}
+
+.btnCancel{
+	width:50%;
+	height:50px;
+	border:none;
+	border-radius:15px;	
+	font-size:25px;
+	font-weight:bold;
+}
+
+.btnCancel:hover{
+	background-color:grey;
+}

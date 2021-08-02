@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="proj21_funding.mapper.BoardCategoryMapper">
+
+	<resultMap type="BoardCategory" id="resBC">
+		<id property="categoryNo" column="CategoryNo" />
+		<result property="categoryName" column="CategoryName" />
+		<result property="categoryClass" column="categoryClass" />
+	</resultMap>
+
+	<sql id="selectSql">
+		select CategoryNo, CategoryName, categoryClass
+		  from BoardCategory	
+	</sql>
+
+	<select id="selectBCAll" resultMap="resBC">
+		<include refid="selectSql" />	
+	</select>
+
+	<select id="selectBCbyNo" resultMap="resBC">
+		<include refid="selectSql" />
+		where categoryNo = #{categoryNo}	
+	</select>
+
+	<select id="selectBCbyName" resultMap="resBC">
+		<include refid="selectSql" />
+		where categoryName = #{categoryName}	
+	</select>
+
+	<select id="selectBCbyClass" resultMap="resBC">
+		<include refid="selectSql" />
+		where categoryClass = #{categoryClass}	
+	</select>
+	
+	<insert id="insertBC" parameterType="BoardCategory">
+		insert
+		  into BoardCategory( categoryNo, categoryName, categoryClass )
+		values(#{categoryNo}, #{categoryName}, #{categoryClass})			
+	</insert>
+	
+	<update id="updateBC">
+		update BoardCategory
+		   set categoryName = #{categoryName}, #{categoryClass}
+		 where categoryNo = #{categoryNo}
+	</update>
+	
+	<delete id="deleteBC">
+		delete
+		  from BoardCategory
+		 where categoryNo = #{categoryNo}	
+	</delete>
+
+</mapper>

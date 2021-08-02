@@ -1,0 +1,205 @@
+@charset "UTF-8";
+/* 탭 */
+body{
+	margin-top: 100px;
+	line-height: 1.6
+}
+.container_tab{
+	width: 650px;
+	margin: 0 auto;
+	margin-top: 20px;
+	border-collapse: collapse;	
+}
+ul.tabs{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+ul.tabs li{
+	font-size:1.1em;
+	font-weight:bold;
+	background: none;
+	color: #222;
+	display: inline-block;
+	padding: 10px 15px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+ul.tabs li.current{
+	background: #e0f3fe;	
+	border-bottom: solid 2.5px #acd6ff; 
+	color: #222;
+}
+
+.register_mid{	
+	display: none;
+	background: #e0f3fe;
+	padding: 15px;
+}
+
+.register_mid.current{
+	display: inherit;
+	padding-bottom: 20px;
+	border-radius: 10px;
+}	
+/*탭 */
+
+/*태이블  */
+.update_table{
+		border-collapse: collapse;		
+}
+
+h2{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin:0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+#upload_prjcontent{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin:0 auto;
+	margin-bottom: 50px;
+}
+#upload_opjcontent{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin:0 auto;
+	flex-direction: column;
+}
+.td_left{
+	font-size:1.1em;
+	font-weight:bold;
+	padding: 5px;
+	width: 170px;
+	 background-color:#d0eaff;
+	border-bottom: 2px solid #acd6ff; 
+	border-right: 1px solid #acd6ff; 
+ 	border-left: 1px solid #acd6ff; 
+}
+#info{
+	border-top: 3px solid #acd6ff; 
+	border-bottom: 2px solid #acd6ff; 
+	background-color:#d0eaff;
+}
+#border_1{
+	border-bottom: none;
+}
+.td_right{
+	width: 330px;
+	padding: 5px;
+}
+td{
+	text-align: center;
+}
+#textContent{
+	font-size:20px;
+	overflow: auto;
+	border-radius: 8px;
+}
+#pCategoryNo{
+	width: 175px;
+	font-size: 15px;
+	border-radius: 5px;
+}
+#prjNo, #userName, #optPrice, #optName, #prjName, #prjGoal,
+#optNo, #optName, #optPrice,#addOptName, #addOptName1, #addOptName2, #addOptName3,
+#addOptPrice, #addOptPrice1, #addOptPrice2, #addOptPrice3{
+	font-size: 15px;
+	border-radius: 5px;
+}
+.datepicker{
+	font-size: 15px;
+	width: 170px;
+	border-radius: 5px;
+	 cursor: pointer;
+}
+.options{
+	background-color:#d0eaff;		
+}
+/*태이블  */
+
+/*버튼  */
+#tdoption_btns{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;	
+	border-bottom: 2px solid #acd6ff; 
+}
+#update_btns{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top:20px;
+	text-align: center;	
+}
+#update_opjBtns{
+	margin-top:20px;
+	text-align: center;	
+}
+
+#btns{
+	width: 150px;
+    height: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    background-color: #ff7675;
+    border-radius: 5px;
+    border: none;
+     cursor: pointer;
+}
+.uploadfile{
+	width: 200px;
+    height: 26px;
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+    background-color: #e0f3fe;
+    border-radius: 5px;
+    border: none;
+}
+.optionMinus{
+	width: 100px;
+    height: 23px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    background-color: #9b93dd;
+    border-radius: 5px;
+    border: none;
+   	margin-top:5px;
+   	margin-bottom:5px;    
+   	 cursor: pointer;
+	
+}
+/*버튼  */
+#MOVE_TOP_BTN {
+    position: fixed;
+    right: 2%;
+    bottom: 50px;
+    z-index: 999;
+    border-color: #ccc;
+    text-align: center;
+    display: inline-block;
+	padding: 6px 12px;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 1.42857143;
+	border-radius: 4px;
+	border-radius:50%;
+	color:black;
+	font-size:30px;
+	width:50px;
+	height:50px;
+}
+#MOVE_TOP_BTN:hover{
+	background-color:#ccc;
+	color:white;
+}

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="proj21_funding.mapper.FundingInfoMapper">
+
+	<resultMap type="FundingInfo" id="resFundingInfo">
+		<id property="fundingNo" column="FundingNo"/>
+		<result property="accountNo" column="AccountNo"/>
+		<result property="payYn" column="PayYN"/>
+		<result property="endYn" column="EndYN"/>
+		<association property="prjNo" resultMap="proj21_funding.mapper.ProjectMapper.resProject"></association>
+		<association property="optNo" resultMap="proj21_funding.mapper.PrjOptionMapper.resOption"></association>
+		<association property="userNo" resultMap="proj21_funding.mapper.UserInfoMapper.resUser"></association>
+	</resultMap>
+	
+
+	<!--해당프로젝트 후원자 수  -->
+	<select id="selectCountByPrjNo" resultType="int">
+	select count(*) as cnt
+	  from fundinginfo f 
+	  join prjoption o on o.optno= f.OptNo 
+	 where f.prjno = #{prjNo};
+	</select>
+	
+	<!--해당프로젝트 총 모인 금액  -->
+	<select id="selectSumByPrjNo" resultType="int">
+	select sum(optPrice)
+	  from fundinginfo f 
+	  join prjoption o on o.optno= f.OptNo 
+	 where f.prjno = #{prjNo};
+	</select>
+	
+	<!--회원별 후원 횟수(결제완료  -->
+	<select id="selectCountByUserNo" resultType="int">
+	select count(*)  from fundinginfo where userno=#{userNo} and payyn=0;
+	</select>
+	
+	<!--회원별 후원 금액  -->
+	<select id="selectSumByUserNo" resultType="int">
+	select sum(optprice) 
+	from fundinginfo f  join prjoption o on f.optno =o.optno  
+	where userno=#{userNo} and payyn=0;
+	</select>
+	
+	<!--회원별 프로젝트 후원 현황 리스트  -->
+	<select id="selectFundingInfoByUserNo" resultMap="resFundingInfo" parameterType="int">
+		select f.prjNo,f.FundingNo ,p.PrjName ,o.optname, o.OptContent, 
+				o.optprice,p.StartDate , p.EndDate , p.EndYN ,f.PayYN
+		  from fundinginfo f join project p on f.PrjNo = p.PrjNo join prjoption o on f.OptNo = o.OptNo
+		 where f.userno = #{userNo.userNo} order by f.fundingno desc; 
+	 </select>
+	<!-- 맵으로 -->
+	
+	<select id="selectFundingInfoByUserNoMap" resultMap="resFundingInfo">
+		select f.prjNo,f.FundingNo ,p.PrjName ,o.optname, o.OptContent, 
+				o.optprice,p.StartDate , p.EndDate , p.EndYN ,f.PayYN
+		  from fundinginfo f join project p on f.PrjNo = p.PrjNo join prjoption o on f.OptNo = o.OptNo
+		 where f.userno = #{userNo} order by f.fundingno desc LIMIT #{pageSearch}, #{cntPerPage }; 
+	 </select>
+	
+	
+	
+	<select id="selectFundingInfoByPrjNo" resultMap="resFundingInfo">
+		select FundingNo, UserNo, PrjNo, OptNo, AccountNo, PayYN, EndYN
+		  from fundinginfo
+		 where PrjNo = #{PrjNo.PrjNo}
+	</select> 
+	
+	<insert id="insertFundingInfo" parameterType="FundingInfo" >
+	insert into fundinginfo (UserNo, PrjNo, OptNo, AccountNo,ZipCode, Address, DetailAddress)
+	values(#{userNo.userNo},#{prjNo.prjNo},#{optNo.optNo},#{accountNo},#{zipCode},#{address},#{detailAddress})
+	</insert>
+
+	 <!-- 테스트 -->
+	<!--  <select id="select">
+	select o.prjNo ,count(*),sum(optprice) 
+			from fundinginfo f 
+	  join prjoption o on o.optno= f.OptNo group by o.prjNo;
+	</select> -->
+	
+	<!-- 달성률 100이넘고 마감날짜가 지났고 payyn이 0이거나 null인 것들을 payyn 1로 업데이트  -->
+	<update id="updatePayYes">
+	update fundinginfo f join project p on f.prjno = p.prjno 
+ set f.payYn = 1
+ where f.prjNo in ( select r1.prjno from (select p.prjno, p.Prjname,p.prjgoal, round(sum(optprice)/prjgoal*100,2) as rate
+		  from fundinginfo f
+	      join prjoption o on o.optno= f.OptNo 
+		  right join project p on p.prjno = f.PrjNo 
+		  join userinfo u on p.userno = u.userno
+		 group by p.prjNo
+		 ) as r1
+where rate>=100) and (payyn=0 or payyn is null) and <![CDATA[ p.endDate  < now();]]>	</update>
+</mapper>

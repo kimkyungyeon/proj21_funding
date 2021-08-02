@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+#message_menu{	
+	width: 200px;
+	font-size: 20px;
+	font-weight: bold;	
+	text-align: center;	
+	line-height: 40px;	
+}
+#menuA{text-decoration: none;
+	color: black;}

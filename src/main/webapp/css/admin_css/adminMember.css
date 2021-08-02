@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+h1,h4{
+	display:inline-block;;
+}
+h4{
+	margin:20px;
+}
+
+.inputMember{
+}
+
+.selectpicker{
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.searchKeyword{
+	width: 10%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.searchBtn{
+	width: 5%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	background-image: none;
+	border-radius: 4px;
+}
+
+#MOVE_TOP_BTN {
+    position: fixed;
+    right: 2%;
+    bottom: 50px;
+    z-index: 999;
+    border-color: #ccc;
+    text-align: center;
+    display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	border-radius: 4px;
+	background-color: red;
+	color:white;
+}
+
+#frmSearchMember{
+	margin-bottom: 10px;
+}
+
+li{
+	float:left;
+	list-style: none;
+	margin-right:35px;
+}
+
+.table-stripedPink>tbody>tr:nth-of-type(odd) {
+	background-color: #FDF5FB;
+}
+.userDetail{
+	font-size: 14px;
+	margin-right: 10px;
+}
+
+.userDetail>input{
+	margin-bottom:5px;
+	border:none;
+	text-align: left;
+}
+
+/* .panel-white>.panel-heading {
+	background-image: -webkit-linear-gradient(top, #ffffff 0, #ffffff 100%);
+	background-image: -o-linear-gradient(top, #ffffff 0, #ffffff 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff),
+		to(#ffffff));
+	background-image: linear-gradient(to bottom, #ffffff 0, #ffffff 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',
+		endColorstr='#ffffffff', GradientType=0);
+	background-repeat: repeat-x;
+	border: 1px solid e8e8e8;
+}
+
+.panel-bodyGrey {
+	padding: 15px;
+	border: 1px solid e8e8e8;
+	border-top: none;
+} */

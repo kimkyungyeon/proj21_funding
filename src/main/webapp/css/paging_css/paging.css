@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.paginate {
+    display: flex;
+    justify-content: center;
+    margin: 16px auto 40px;
+    text-align: center;
+}
+
+.paging{
+    display: flex;
+    justify-content: center;
+    color: rgb(158, 158, 158);
+    margin: 0px auto;
+    font-size: 14px !important;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding: 0px;
+}
+
+.paging a{
+	text-decoration: none;
+	color: gray;
+	font-weight: 700;
+}
+
+.paging li{
+    display: flex;
+    color: rgb(158, 158, 158);
+    margin: 0px;
+    font-size: 14px !important;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+    list-style: none;
+}

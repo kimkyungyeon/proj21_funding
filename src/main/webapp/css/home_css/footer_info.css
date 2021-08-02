@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+.context p {
+	font-size: 0.875rem;
+	color: #757575;
+    line-height: 2;
+    font-weight: 400;
+}
+
+#context_top {
+	margin-top: 55px;
+}

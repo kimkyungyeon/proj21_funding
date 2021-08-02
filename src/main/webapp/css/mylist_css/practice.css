@@ -1,0 +1,70 @@
+@charset "UTF-8";
+@import "compass";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800);
+
+.custom-table{
+  font-family: Open Sans;
+  text-align: center;
+  width: 100%;
+  min-width: 1024px;
+  display: inline-block;
+ 
+}
+ .table-header{
+  background: #2B3245;
+  border-bottom: 3px solid #EE6223;
+  color: #fff;
+  display: inline-block;
+  width: 100%;
+  height: auto;  
+  
+}
+ .table-header > div , .table-row > div{
+    display: inline;
+    width: 10.8%;
+    float: left;
+ 
+  }
+      .table-header > div , .table-row > div:first-child{
+      width: 5%;
+    }
+    
+   .table-header > div , .table-row > div:last-child{
+      border: none;
+    }
+  .date-column{
+    width: 15% !important;
+  }
+  .table-content{
+    display: inline-block;
+    width: 100%;
+    height: 300px;
+    overflow: auto;
+    #e4e8ff
+  }  
+  .table-header > div{
+    border-right: 1px solid #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 8px 0;
+  }
+.table-row{
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  line-height: 2.3; 
+}
+ .table-row:after {
+   visibility: hidden;
+   display: block;
+   font-size: 0;
+   content: " ";
+   clear: both;
+   height: 0;
+   }
+
+
+

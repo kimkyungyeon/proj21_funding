@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="proj21_funding.mapper.ProjectStatMapper">
+	<resultMap type="ProjectStat" id="resProjectStat">
+		<id property="period" column="period"/>
+		<result property="nickname" column="nickname"/>
+		<result property="count1" column="count1"/>
+		<result property="count2" column="count2"/>
+		<result property="sum1" column="sum1"/>
+		<result property="sum2" column="sum2"/>
+	</resultMap>
+	
+	<select id="selectSalesStat" resultMap="resProjectStat">
+		 select date_format(p.EndDate,'%Y년 %m월') as period ,
+			count(fundingno) as count1,
+			sum(o.OptPrice) as sum1
+		from (select * from fundinginfo where payyn = 1) f join project p on f.PrjNo = p.prjno
+		join prjoption o on f.OptNo = o.OptNo
+		group by period;
+	</select>
+</mapper>

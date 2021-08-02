@@ -1,0 +1,23 @@
+@charset "UTF-8";
+#searchnotArea{
+	/*정 가운데 배치 */
+	display: flex;
+	flex-direction:column;	
+	justify-content: center;
+	align-items: center;
+	height: 50vh;	
+	font-size: 30px;
+}
+
+#searchnotForm{
+	margin-top: 30px;
+	text-align:center;
+	width: 400px;	
+}
+
+
+button{
+	font-weight: bold;
+	line-height: 20px;
+}	
+	

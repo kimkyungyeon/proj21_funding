@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+#listAll {
+	display: flex;
+	-webkit-box-pack: start;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+#listcont {
+	width: 33%;
+	margin: 0px 0px 84px;
+	padding: 0px 1rem;
+	box-sizing: border-box;
+	display: block;
+}
+
+.prjThumb img {
+	width: 100%;
+	height: 300px;
+}
+
+.prjName {
+	height: 110px;
+}
+
+.prjName dl {
+	margin: 0px;
+	padding: 16px 0px 0px;
+}
+
+.prjName dt {
+	width: 93%;
+	font-size: 20px;
+	line-height: 29px;
+	letter-spacing: -0.025em;
+	margin: 0px 0px 10px;
+	font-weight: bold;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	max-height: 58px;
+	word-break: keep-all;
+	overflow-wrap: break-word;
+}
+
+.prjName a {
+	color: rgb(61, 61, 61);
+	text-decoration: none;
+}
+
+.prjName dd {
+	font-size: 13px;
+	line-height: 20px;
+	letter-spacing: -0.015em;
+	color: rgb(158, 158, 158);
+	padding: 0px 0px 10px;
+	margin: 0px;
+}
+
+.prjpercent {
+	width: 100%;
+	margin: 0px;
+	overflow: hidden;
+	background: #dcdcdc;
+	height: 3px;
+	position: relative;
+}
+
+.prjpercent progress {
+	/* style rules */
+	width: 100%;
+	margin: 0px;
+	overflow: hidden;
+	height: 3px;
+	position: relative;
+	color: #dc143c;
+}
+
+progress{
+	width: 100%;
+	float:right;
+	-webkit-appearance: none;
+    appearance: none;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #ecf0f1;
+}
+progress[value]::-webkit-progress-value {
+    border-radius: 5px;
+    background: rgb(250, 100, 98);
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+.moment {
+	height: 35px;
+	display: flex;
+	align-items: flex-end;
+}
+
+.funding-amount {
+	font-size: 18px;
+	line-height: 27px;
+	letter-spacing: -0.02em;
+	color: rgb(61, 61, 61);
+}
+
+.moment {
+	color: rgb(255, 87, 87);
+	margin: 0px;
+}
+
+.imgThumb{
+	border-radius:10px;
+}

@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+#question{text-align: center;}
+
+#questionForm{}
+
+#receiveUser{}
+
+#input{}
+
+#errors{
+	margin:5px 0px;
+    color: rgb(255, 87, 87);
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.015em;
+}
+
+#btn{text-align: center;}

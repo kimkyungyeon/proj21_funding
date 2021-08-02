@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+#prjBoardDetailArea{
+	border-radius: 15px;
+	background-color: #ecf0f1;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-top: -120px;	
+}
+
+#detailArea{
+	margin-top: 10px;
+	background-color: rgb(255, 255, 255);
+	padding-left: 20px;
+	padding-right: 20px;
+	width: 700px;
+	border-radius: 15px;
+}
+
+#back{margin-top: 10px;
+border-radius: 5px;
+	font-size: 15px;}
+
+#nickName{
+	font-size: 25px;
+}
+#postDate{
+	font-size: 15px;
+}
+#postContent{
+	padding-top: 20px;
+}
+img{
+	padding-top: 20px;
+	display: block;
+	width:500px;
+	height: 400px;
+	margin: 0 auto;
+}
+
+#btn{
+	text-align: right;
+	padding-right: 20px;
+}
+
+#countReply{
+	font-size: 12px;
+}
+
+#reReply{
+	height: 80px;
+	display: flex;
+}
+
+
+#registerReply{
+	width: 85%;	
+	height: 100%;
+}
+
+#originator{
+	background-color: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	font-size: 15px;
+}
+#registerReplyBtn{
+	height: 100%;
+	width: 100px;
+}
+#errors {
+	margin: 5px 0px;
+	color: rgb(255, 87, 87);
+	font-size: 13px;
+	line-height: 20px;
+	letter-spacing: -0.015em;	
+}
+#boardReply{margin-top: -10px;
+padding-bottom: 50px;}
+
+#boardReplyCon{
+	width: 100%
+}
+#nickName{
+	width: 30%;
+}
+
+#replyContent{
+	margin-left: 20px;
+}
+
+#delRebtn{text-align: right;
+margin-top: -20px;
+margin-bottom: -15px}

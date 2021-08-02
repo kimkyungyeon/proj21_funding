@@ -1,0 +1,105 @@
+@charset "UTF-8";
+
+#quesall {
+	width: 100%;
+	display: flex;
+}
+
+#question-title {
+	float: left;
+	height: 100%;
+	width: 20%;
+	padding-right: 20px;
+}
+
+#questioncont {
+	position: relative;
+	float: right;
+	border-left: 1px solid #e8e8e8;
+	width: auto;
+	padding-top: 30px;
+	padding-left: 58px;
+	padding-bottom: 60px;
+	padding-left: 58px;
+}
+
+dl {
+	width: 100%;
+	float: left;
+	border-bottom: 1px solid #e8e8e8;
+	margin: 0px;
+}
+
+dt {
+	float: left;
+	width: 15%;
+	font-size: 15px;
+	letter-spacing: -1px;
+	margin: 0px;
+	padding: 25px 0px;
+}
+
+dd {
+	float: right;
+	width: 80%;
+	margin: 0px;
+	padding: 20px 0px;
+}
+
+dd select {
+	width: 98%;
+	height: 40px;
+	padding-left: 5px;
+}
+
+dd input[type=text] {
+	width: 98%;
+	height: 30px;
+}
+
+dd textarea {
+	width: 98%;
+	height: 250px;
+}
+
+#hidden{
+	width:0;
+	height:0;
+}
+
+#commandCell{
+	text-align: center;
+}
+
+#commandCell a {
+	text-align: center;
+	text-decoration: none;
+}
+
+#commandCell input[type=submit], input[type=reset], input[type=button], #go_qna, #commandbutton {
+	color: gray;
+	margin-top: 20px;
+	display: inline-flex;
+	height: 36px;
+	min-width: 170px;
+	max-width: 170px;
+	-webkit-box-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	align-items: center;
+	border: 1px solid rgba(13, 13, 13, 0.4);
+	cursor: pointer;
+	min-height: 36px;
+	font-size: 14px;
+	line-height: 27px;
+	border-radius: 4px;
+	font-weight: 500;
+	transition: all 0.3s ease-in-out 0s;
+	text-align: center;
+	text-decoration: none;
+	background-color: white;
+}
+
+#go_qna {
+	text-decoration: none;
+}

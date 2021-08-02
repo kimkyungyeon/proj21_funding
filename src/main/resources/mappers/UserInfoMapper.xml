@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="proj21_funding.mapper.UserInfoMapper">
+
+	<resultMap type="UserInfo" id="resUser">
+		<id property="userNo" column="userNo" />
+		<result property="userId" column="userId"/>		
+		<result property="userPw" column="userPw"/>		
+		<result property="userName" column="userName"/>		
+		<result property="nickName" column="nickName"/>	
+		<result property="email" column="email"/>	
+		<result property="userPhone" column="userPhone"/>			
+		<result property="zipCode" column="zipCode"/>		
+		<result property="address" column="address"/>		
+		<result property="detailAddress" column="detailAddress"/>		
+		<result property="bankName" column="bankName"/>				
+		<result property="accountHolder" column="accountHolder"/>			
+		<result property="bankAccount" column="bankAccount"/>
+		<result property="secession" column="secession"/>		
+	</resultMap>
+
+	<sql id="selecSql">
+		select 
+			UserNo, UserId, UserPw,	UserName, Nickname, Email,
+			ZipCode, Address, DetailAddress,
+			UserPhone, BankName, accountHolder, BankAccount, secession
+		 from userinfo
+	</sql>
+
+	<select id="selectUserAll" resultMap="resUser">
+		<include refid="selecSql" />	
+	</select>
+
+	<select id="selectUserbyNo" resultMap="resUser">
+		<include refid="selecSql" />
+		where userNo = #{userNo}	
+	</select>
+
+	<select id="selectUserbyId" resultMap="resUser">
+		<include refid="selecSql" />
+		where userId = #{userId}	
+	</select>
+	
+	<select id="selectUserListbyId" resultMap="resUser">
+		<include refid="selecSql" />
+		 where userId LIKE CONCAT('%', #{userId}, '%');
+	</select>
+		
+	<select id="selectUserbyNickname" resultMap="resUser">
+		<include refid="selecSql" />
+		where nickName = #{nickName}	
+	</select>
+	
+	<select id="selectUserListbyNickname" resultMap="resUser">
+		<include refid="selecSql" />
+		 where nickName LIKE CONCAT('%', #{nickName}, '%');
+	</select>
+	
+	<select id="selectUserListbyName" resultMap="resUser">
+		<include refid="selecSql" />
+		 where userName LIKE CONCAT('%', #{userName}, '%');
+	</select>
+	
+	<select id="selectUserbyEmail" resultMap="resUser">
+		<include refid="selecSql" />
+		where Email = #{email}	
+	</select>
+ 
+	<select id="selectUserbylogin" parameterType="UserLogin"  resultMap="resUser" >
+		select 
+			UserNo, UserId, UserPw,	UserName, Nickname, Email,
+			UserPhone, ZipCode, Address, DetailAddress,
+			BankName, accountHolder, BankAccount, secession
+		 from userinfo 
+		where userId = #{userId} and userPw = password(#{userPw})	
+	</select>
+	
+	<select id="selectUserbySearchId" parameterType="UserInfo" resultMap="resUser">
+		<include refid="selecSql" />
+		where userName = #{userName} and email = #{email}	
+	</select>
+	
+	<insert id="insertUser" parameterType="UserInfo">
+		insert
+		  into userinfo( UserId, UserPw, UserName, Nickname, Email, UserPhone,
+		 		 ZipCode, Address, DetailAddress, BankName, AccountHolder, BankAccount)
+		values(#{userId}, password(#{userPw}), #{userName}, #{nickName}, #{email}, #{userPhone},
+			   #{zipCode}, #{address}, #{detailAddress}, #{bankName}, #{accountHolder}, #{bankAccount})			
+	</insert>
+	
+	<update id="updateUser">
+		update userinfo
+		   set Nickname = #{nickName}, Email = #{email}, UserPhone = #{userPhone}, ZipCode = #{zipCode}, Address = #{address},
+		    DetailAddress = #{detailAddress}, BankName = #{bankName}, AccountHolder = #{accountHolder}, BankAccount = #{bankAccount}
+		 where userId = #{userId}
+	</update>
+	
+	<update id="updateUserPw">
+		update userinfo
+		   set UserPw = password(#{userPw})
+		 where userId = #{userId}	
+	</update>	
+	
+	<update id="deleteUser">
+		update userinfo
+		   set secession = True
+		 where UserNo = #{userNo}	
+	</update>
+	
+	<select id="userCount" resultType="int">
+		select count(*) as count from userInfo
+	</select>
+	
+	<select id="currentUserCount" resultType="int">
+		select count(*) as count from userInfo where Secession is null  or Secession is false
+	</select>	
+	
+	<select id="prdCount" resultType="int">
+		select count(*) as count from userInfo where BankAccount is not null and BankName is not null;
+	</select>
+	
+	
+	<select id="selectUserListByMapAdmin" resultMap="resUser">
+		<include refid="selecSql" />
+		<where>
+		<choose>
+			<when test="delYn.equals('notDelete')">
+				 ( Secession is null or Secession is false)
+			</when>
+			<when test="delYn.equals('all')">
+			</when>
+		</choose>
+		<choose>
+			<when test="keyword.equals('total')">
+			</when>
+			<when test="keyword.equals('memberAccount')">
+				and userId LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+			<when test="keyword.equals('memberName')">
+				and userName LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+			<when test="keyword.equals('nickname')">
+				 and nickName LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+			<when test="keyword.equals('userno')">
+				 and userno LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+		</choose>
+		</where>
+		<if test="descYn.equals('desc')">
+			 order by userNo desc
+		</if>
+		<if test="descYn.equals('asc')">
+			 order by userNo asc
+		</if>
+		  LIMIT #{pageSearch}, #{cntPerPage } ;
+	</select>
+	
+	<select id="selectUserListByMapAdminCount" resultType="int">
+		select count(userno) from userinfo
+		<where>
+		<choose>
+			<when test="delYn.equals('notDelete')">
+				 ( Secession is null or Secession is false)
+			</when>
+			<when test="delYn.equals('all')">
+			</when>
+		</choose>
+		<choose>
+			<when test="keyword.equals('total')">
+			</when>
+			<when test="keyword.equals('memberAccount')">
+				and userId LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+			<when test="keyword.equals('memberName')">
+				and userName LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+			<when test="keyword.equals('nickname')">
+				 and nickName LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+			<when test="keyword.equals('userno')">
+				 and userno LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+		</choose>
+		</where>
+	</select>
+
+	
+	<!-- 계좌 확인  -->
+	<select id="showBankAccount" resultMap="resUser">
+				select BankName, BankAccount 
+				from userinfo
+					where userNo = #{userNo}		
+	</select>
+	
+	<!-- 계좌 등록 업데이트  -->
+	<update id="updateBankAccount">
+			update userinfo 
+					set BankName =#{bankName}, BankAccount =#{bankAccount},
+							AccountHolder =#{accountHolder}					
+			where UserNo =#{userNo}	
+	</update>
+	
+</mapper>
